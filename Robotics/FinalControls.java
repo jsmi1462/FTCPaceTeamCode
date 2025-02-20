@@ -61,7 +61,8 @@ public class Fianlcontrols extends LinearOpMode {
 
     // run until the end of the match (driver presses STOP)
     while (opModeIsActive()) {
-        
+
+    //linear slide controls
     if(this.gamepad2.left_bumper == true && this.gamepad2.a == true)
      {
        l1.setPower(.9);
@@ -88,7 +89,7 @@ public class Fianlcontrols extends LinearOpMode {
          l2.setPower(-.1);
      }
         
-        
+     //other slide control
      if(this.gamepad1.right_bumper == true)
      {
         slin.setPower(.7);
@@ -104,7 +105,8 @@ public class Fianlcontrols extends LinearOpMode {
        slin.setPower(.07);
       
      }
-     
+
+     //claw with regular servo position code
      if (gamepad1.x) {
             sclaw.setPosition(closedPosition);  // Close the fclaw
             telemetry.addData("fclaw State", "Closing");
@@ -115,7 +117,7 @@ public class Fianlcontrols extends LinearOpMode {
             sclaw.setPosition(openPosition);   // Open the fclaw
             telemetry.addData("fclaw State", "Opening");
         }
-     
+
      if (gamepad1.dpad_left) {
          fclaw.setPosition(closedPosition2); 
         }
@@ -123,7 +125,8 @@ public class Fianlcontrols extends LinearOpMode {
      if (gamepad1.dpad_right) {
          fclaw.setPosition(openPosition2); 
       }
-      
+
+      //servo basket controls
       if (gamepad1.dpad_down)
       {
         //b1.setPosition(1.2);
@@ -137,7 +140,7 @@ public class Fianlcontrols extends LinearOpMode {
         
       }
     
-    
+    //following code is using joysticks on controller to alter the power of the motors individually depending
     double rightJoystickY = gamepad1.right_stick_y; // Negative to match forwards being positive
 
     // Set the power of the flin motor based on the joystick input
