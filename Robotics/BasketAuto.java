@@ -1,3 +1,4 @@
+//contains most of the Encoder and IMU comments + code
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.IMU;
