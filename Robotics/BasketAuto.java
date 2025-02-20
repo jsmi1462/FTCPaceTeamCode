@@ -55,7 +55,7 @@ public class EncoderAutoBasket extends LinearOpMode {
         // Initialize IMU
         imu = hardwareMap.get(BHI260IMU.class, "imu");
 
-        // Reverse left side motors
+        // Reverse motors
         frontl.setDirection(DcMotor.Direction.REVERSE);
         leftb.setDirection(DcMotor.Direction.REVERSE);
         frontr.setDirection(DcMotor.Direction.FORWARD);
@@ -98,7 +98,9 @@ public class EncoderAutoBasket extends LinearOpMode {
         //turnToHeading(90);
         //driveBackward(2);
         //strafeRight(3);
-        
+
+
+        //start of auto running
         fclaw.setPosition(openPosition2); 
         strafeLeft(3.6);
         driveBackward(2.2);
@@ -147,30 +149,35 @@ public class EncoderAutoBasket extends LinearOpMode {
         
     }
 
+    //sets targetPosition for motors
     private void driveForward(double distanceInches) {
         int targetTicks = (int) (distanceInches / INCHES_PER_TICK);
         setTargetPosition(targetTicks, targetTicks, targetTicks, targetTicks);
         moveToTarget(0.6);
     }
 
+    //same as above
     private void driveBackward(double distanceInches) {
         int targetTicks = (int) (distanceInches / INCHES_PER_TICK);
         setTargetPosition(-targetTicks, -targetTicks, -targetTicks, -targetTicks);
         moveToTarget(0.6);
     }
 
+    //same as above
     private void strafeRight(double distanceInches) {
         int targetTicks = (int) (distanceInches / INCHES_PER_TICK);
         setTargetPosition(targetTicks, -targetTicks, -targetTicks, targetTicks); // Correct motor directions
         moveToTarget(0.6);
     }
 
+    //same as above
     private void strafeLeft(double distanceInches) {
         int targetTicks = (int) (distanceInches / INCHES_PER_TICK);
         setTargetPosition(-targetTicks, targetTicks, targetTicks, -targetTicks); // Correct motor directions
         moveToTarget(0.6);
     }
-    
+
+    //same as above
     private void armUp(double distanceInches)
     {
         int targetTicks = (int) (distanceInches / INCHES_PER_TICK);
@@ -178,7 +185,8 @@ public class EncoderAutoBasket extends LinearOpMode {
         moveToTargetSlin(.8);
     
     }
-    
+
+    //same as above
     private void armDown(double distanceInches)
     {
         int targetTicks = (int) (distanceInches / INCHES_PER_TICK);
@@ -186,13 +194,14 @@ public class EncoderAutoBasket extends LinearOpMode {
         moveToTargetSlin(.8);
     
     }
-    
-     private void setTargetPositionArm(int slinT) {
+
+    //same as above
+    private void setTargetPositionArm(int slinT) {
         slin.setTargetPosition(slin.getCurrentPosition() + slinT);
         slin.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
-
+    //changes motors to run to the position previously set
     private void setTargetPosition(int flTicks, int frTicks, int lbTicks, int rbTicks) {
         frontl.setTargetPosition(frontl.getCurrentPosition() + flTicks);
         frontr.setTargetPosition(frontr.getCurrentPosition() + frTicks);
@@ -203,7 +212,8 @@ public class EncoderAutoBasket extends LinearOpMode {
         leftb.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightb.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
-    
+
+    //sets the power for slide to move to position
     private void moveToTargetSlin(double power)
     {
         slin.setPower(power);
@@ -214,7 +224,8 @@ public class EncoderAutoBasket extends LinearOpMode {
         }
         slin.setPower(0.05);
     }
-    
+
+    //sets the power for motors to move to position previously set
     private void moveToTarget(double power) {
         frontl.setPower(power);
         frontr.setPower(power);
@@ -226,12 +237,16 @@ public class EncoderAutoBasket extends LinearOpMode {
         }
         stopMotors();
     }
+
+    //I dont know
     private double normalizeAngle(double angleDifference) {
         while (angleDifference > 180) angleDifference -= 360;
         while (angleDifference < -180) angleDifference += 360;
             return angleDifference;
     }
 
+    //sets bot to turn to angle of IMU position, depends on control hub orientation
+    //power portion is messed up and bot randomly chooses turning direction based on both negative or positive 
     private void turnToAngle(double targetAngle, double power) {
         double currentAngle = getHeading();
         double angleDifference = targetAngle - currentAngle;
@@ -351,7 +366,8 @@ public class EncoderAutoBasket extends LinearOpMode {
         l1.setPower(0.05);
         l2.setPower(0.05);
     }
-    
+
+    //stops all motors
     private void stopMotors() {
         frontl.setPower(0);
         frontr.setPower(0);
