@@ -12,9 +12,9 @@ import com.qualcomm.robotcore.util.Range;
 
 public class Fianlcontrols extends LinearOpMode {
 
-  private DcMotor frontl, frontr, leftb, rightb, l1, l2, flin, slin;
-  private CRServo wrist;
-  private Servo sclaw, fclaw, b1, b2;
+  private DcMotor frontl, frontr, leftb, rightb; // i took out , l1, l2, flin, slin
+//  private CRServo wrist;
+  //private Servo sclaw, fclaw, b1, b2;
   
   double maxSpeed = 1.0;
 
@@ -22,26 +22,26 @@ public class Fianlcontrols extends LinearOpMode {
   public void runOpMode() {
 
     // This creates variables for each motor based on the configuration file
-    frontl = hardwareMap.get(DcMotor.class, "fl");
-    frontr = hardwareMap.get(DcMotor.class, "fr");
-    leftb = hardwareMap.get(DcMotor.class, "bl");
-    rightb = hardwareMap.get(DcMotor.class, "br");
-    l2 = hardwareMap.get(DcMotor.class, "l2");
-    l1 = hardwareMap.get(DcMotor.class, "l1");
-    slin = hardwareMap.get(DcMotor.class, "flin");
-    flin = hardwareMap.get(DcMotor.class, "slin");
+    frontl = hardwareMap.get(DcMotor.class, "left_front_drive");
+    frontr = hardwareMap.get(DcMotor.class, "rightFront");
+    leftb = hardwareMap.get(DcMotor.class, "Left_back_drive");
+    rightb = hardwareMap.get(DcMotor.class, "back_right_drive");
+    //l2 = hardwareMap.get(DcMotor.class, "l2");
+    //l1 = hardwareMap.get(DcMotor.class, "l1");
+    //slin = hardwareMap.get(DcMotor.class, "flin");
+    //flin = hardwareMap.get(DcMotor.class, "slin");
     
-    sclaw = hardwareMap.get(Servo.class, "sclaw");
-    fclaw = hardwareMap.get(Servo.class, "fclaw");
-    b1 = hardwareMap.get(Servo.class, "b1");
-    b2 = hardwareMap.get(Servo.class, "b2");
-    wrist = hardwareMap.get(CRServo.class, "wrist");
+    //sclaw = hardwareMap.get(Servo.class, "sclaw");
+    //fclaw = hardwareMap.get(Servo.class, "fclaw");
+    //b1 = hardwareMap.get(Servo.class, "b1");
+    //b2 = hardwareMap.get(Servo.class, "b2");
+    //wrist = hardwareMap.get(CRServo.class, "wrist");
    
-
-    frontl.setDirection(DcMotor.Direction.REVERSE);
-    leftb.setDirection(DcMotor.Direction.REVERSE);
+    // change the direction of the motor if needed
+    //frontl.setDirection(DcMotor.Direction.REVERSE);
+    //leftb.setDirection(DcMotor.Direction.REVERSE);
     
-    l1.setDirection(DcMotor.Direction.REVERSE);
+    //l1.setDirection(DcMotor.Direction.REVERSE);
     
     
     telemetry.addData("Status", "Initialized");
@@ -53,16 +53,17 @@ public class Fianlcontrols extends LinearOpMode {
     waitForStart();
     
 
-    
-    double openPosition = 0.572;   // Full open (adjust this value as needed)
-    double closedPosition = .2;
-    double openPosition2 = 0;   // Full open (adjust this value as needed)
-    double closedPosition2 = .15;
+    // for claw
+    //double openPosition = 0.572;   // Full open (adjust this value as needed)
+    //double closedPosition = .2;
+    //double openPosition2 = 0;   // Full open (adjust this value as needed)
+    //double closedPosition2 = .15;
 
     // run until the end of the match (driver presses STOP)
     while (opModeIsActive()) {
 
     //linear slide controls
+    /* 
     if(this.gamepad2.left_bumper == true && this.gamepad2.a == true)
      {
        l1.setPower(.9);
@@ -105,8 +106,10 @@ public class Fianlcontrols extends LinearOpMode {
        slin.setPower(.07);
       
      }
+       */
 
      //claw with regular servo position code
+     /* 
      if (gamepad1.x) {
             sclaw.setPosition(closedPosition);  // Close the fclaw
             telemetry.addData("fclaw State", "Closing");
@@ -125,8 +128,9 @@ public class Fianlcontrols extends LinearOpMode {
      if (gamepad1.dpad_right) {
          fclaw.setPosition(openPosition2); 
       }
-
+      */
       //servo basket controls
+      /* 
       if (gamepad1.dpad_down)
       {
         //b1.setPosition(1.2);
@@ -139,12 +143,13 @@ public class Fianlcontrols extends LinearOpMode {
         b2.setPosition(.9);
         
       }
+      */
     
     //following code is using joysticks on controller to alter the power of the motors individually depending
     double rightJoystickY = gamepad1.right_stick_y; // Negative to match forwards being positive
 
     // Set the power of the flin motor based on the joystick input
-    flin.setPower(rightJoystickY/2);
+    //flin.setPower(rightJoystickY/2);
     
     double rightJoystickY2 = -gamepad2.right_stick_y;
     
@@ -154,15 +159,15 @@ public class Fianlcontrols extends LinearOpMode {
 
         // If left trigger is pressed, rotate counterclockwise (negative power)
         // If right trigger is pressed, rotate clockwise (positive power)
-        double wristPower = rightTrigger - leftTrigger;  // Right trigger is positive, left trigger is negative
+        //double wristPower = rightTrigger - leftTrigger;  // Right trigger is positive, left trigger is negative
 
         // Set the wrist motor power based on trigger input
-        wrist.setPower(wristPower);
+        //wrist.setPower(wristPower);
 
         // Telemetry for debugging
         telemetry.addData("Left Trigger", leftTrigger);
         telemetry.addData("Right Trigger", rightTrigger);
-        telemetry.addData("Wrist Power", wristPower);
+        //telemetry.addData("Wrist Power", wristPower);
         telemetry.update();
      
      // Get joystick inputs
